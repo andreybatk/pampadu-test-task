@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "test-task.api",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "serviceActions": {
+        "pgadmin4": "StartWithoutDebugging",
+        "postgres": "StartWithoutDebugging",
+        "test-task.api": "StartDebugging"
+      }
+    }
+  }
+}

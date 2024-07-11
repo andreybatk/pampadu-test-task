@@ -1,0 +1,51 @@
+version: '3.4'
+networks:
+  test-task-network:
+    driver: bridge
+services:
+  postgres:
+    container_name: test-task-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: test-task-postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - test-task-postgres-data:/var/lib/postgresql/data
+    networks:
+      - test-task-network
+  pgadmin4:
+    container_name: test-task-pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@a48zomro.ml
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    volumes:
+      - test-task-pgadmin-data:/var/lib/pgadmin
+    networks:
+      - test-task-network
+
+  test-task.api:
+    container_name: test-task.api
+    image: test-task.api
+    build:
+      context: .
+      dockerfile: PampaduTestTask.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    networks:
+      - test-task-network
+
+volumes:
+  test-task-postgres-data:
+  test-task-pgadmin-data:
+
