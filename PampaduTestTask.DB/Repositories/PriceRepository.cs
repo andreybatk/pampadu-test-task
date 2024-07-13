@@ -25,7 +25,7 @@ namespace PampaduTestTask.DB.Repositories
         public async Task<List<Price>> GetPrices()
         {
             var query = $@"select * from Prices
-                order by UpdatedAt";
+                order by UpdatedAt desc";
             var prices = await _context.QueryAsync<Price>(query);
             return prices.ToList();
         }

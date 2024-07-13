@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PampaduTestTask.DB.Entities;
 using PampaduTestTask.DB.Repositories;
 
 namespace PampaduTestTask.API.Controllers
@@ -15,7 +16,7 @@ namespace PampaduTestTask.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<Price>> Get(int id)
         {
             var data = await _priceRepository.GetById(id);
 
@@ -27,7 +28,7 @@ namespace PampaduTestTask.API.Controllers
             return Ok(data);
         }
         [HttpGet]
-        public async Task<IActionResult> GetPrices()
+        public async Task<ActionResult<List<Price>>> GetPrices()
         {
             var data = await _priceRepository.GetPrices();
 
